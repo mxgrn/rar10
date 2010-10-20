@@ -15,7 +15,7 @@ class Viewport < Netzke::Base
         :layout => :fit,
         :id => :container,
         :border => false,
-        :tbar => [{:text => "Load", :menu => [:server_caller.action, :extended_server_caller.action, :composite.action]}]
+        :tbar => [{:text => "Load", :menu => [:simple_component.action, :extended_component.action, :composite.action]}]
       },{
         :region => :south,
         :xtype => :toolbar,
@@ -25,9 +25,9 @@ class Viewport < Netzke::Base
     }
   end
   
-  action :server_caller, :handler => :on_load_action
-  action :extended_server_caller, :handler => :on_load_action
-  action :composite, :icon => :application_tile_horizontal, :handler => :on_load_action
+  action :simple_component, :handler => :on_load_action
+  action :extended_component, :handler => :on_load_action
+  action :composite, :icon => :table_multiple, :handler => :on_load_action
   
   js_method :on_load_action, <<-JS
     function(el){
@@ -35,7 +35,7 @@ class Viewport < Netzke::Base
     }
   JS
 
-  component :server_caller, :command => "find . -name '*.rb'", :lazy_loading => true
-  component :extended_server_caller, :command => "ls", :lazy_loading => true
+  component :simple_component, :lazy_loading => true
+  component :extended_component, :lazy_loading => true
   component :composite, :lazy_loading => true
 end
