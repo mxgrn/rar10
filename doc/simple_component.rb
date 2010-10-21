@@ -1,20 +1,19 @@
 class SimpleComponent < Netzke::Base
-  js_properties :title       => "My Simple Component", 
-                :border      => true,
-                :bbar        => [:books_list.action],
-                :auto_scroll => true
+  js_property :title, "My Cool Component"
   
-  action :books_list, :icon => :book
+  action :book_list, :icon => :book
   
-  js_method :on_books_list, <<-JS
-    function(){
-      this.getBooksList({digital:true});
+  js_property :bbar, [:book_list.action]
+  
+  js_method :on_book_list, <<-JS
+    function(params){
+      this.getBookList();
     }
   JS
   
-  endpoint :get_books_list do |params|
-    @books = Book.all
-    {:update_body => @books.map(&:title).join("<br/>"), :set_title => "Success!"}
+  endpoint :get_book_list do |params|
+    @books = Book.limit(config[:limit] || Book.count)
+    { :set_title => "Success!", :update_body => @books.map(&:title).join("<br/>") }
   end
   
   js_method :update_body, <<-JS
