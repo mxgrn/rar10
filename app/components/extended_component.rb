@@ -1,5 +1,6 @@
 class ExtendedComponent < SimpleComponent
   js_properties :title       => "Extended Component"
+  js_property :auto_scroll, true
   
   action :book_list, :icon => :book_link
   
