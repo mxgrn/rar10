@@ -4,7 +4,8 @@ class ExtendedComponent < SimpleComponent
   
   action :book_list, :icon => :book_link
   
-  def get_book_list(params)
+  # Overriding the implementation of the get_book_list endpoint
+  def get_book_list_endpoint(params)
     orig = super
     orig.merge(:update_body => orig[:update_body] + "<br/><b>Total amount:</b> " + @books.count.to_s)
   end
